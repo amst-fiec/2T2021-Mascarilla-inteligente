@@ -429,17 +429,119 @@
                             android:gravity="center"
                             android:layout_gravity="center"/>
                     </TableRow>
+                    <TableRow
+                        android:id="@+id/tb_dashboardData11"
+                        android:weightSum="3"
+                        android:background="@drawable/color_tabla_datos_celdas"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/tb_timeData11"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_distanceData11"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_howManyTimeData11"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/tb_dashboardData12"
+                        android:weightSum="3"
+                        android:background="@drawable/color_tabla_datos_celdas"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/tb_timeData12"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_distanceData12"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_howManyTimeData12"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/tb_dashboardData13"
+                        android:weightSum="3"
+                        android:background="@drawable/color_tabla_datos_celdas"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginBottom="45dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/tb_timeData13"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_distanceData13"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_howManyTimeData13"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                    </TableRow>
                 </TableLayout>
             </ScrollView>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-            </LinearLayout>
-            <LinearLayout
+                android:layout_marginTop="45dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -464,6 +566,5 @@
                     android:layout_width="match_parent"
                     android:gravity="center"/>
             </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
