@@ -541,6 +541,78 @@
                             android:gravity="center"
                             android:layout_gravity="center"/>
                     </TableRow>
+                    <TableRow
+                        android:id="@+id/tb_dashboardData14"
+                        android:weightSum="3"
+                        android:background="@drawable/color_tabla_datos_celdas"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/tb_timeData14"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_distanceData14"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_howManyTimeData14"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/tb_dashboardData15"
+                        android:weightSum="3"
+                        android:background="@drawable/color_tabla_datos_celdas"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/tb_timeData15"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_distanceData15"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/tb_howManyTimeData15"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:text="Dato"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+                    </TableRow>
                 </TableLayout>
             </ScrollView>
             <LinearLayout
@@ -562,7 +634,7 @@
                     android:id="@+id/tv_peopleAmountNumber"
                     android:background="@drawable/titulo_registro"
                     android:textColor="@color/white"
-                    android:text="30"
+                    android:text="15"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:layout_height="100sp"
