@@ -10,19 +10,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
             <LinearLayout
+                android:orientation="horizontal"
+                android:background="@drawable/titulo_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/tv_titleTable"
-                    android:layout_width="match_parent"
+                    android:layout_width="320dp"
                     android:layout_height="80dp"
-                    android:background="@drawable/titulo_registro"
                     android:text="DASHBOARD"
                     android:textSize="28dp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:gravity="center_vertical"
                     android:paddingLeft="30dp"/>
+                <ImageButton
+                    android:onClick="logout"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/titulo_registro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/cerrarsesion" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="40dp"
@@ -630,11 +639,10 @@
                     android:layout_height="100sp"
                     android:layout_width="wrap_content"
                     android:gravity="center_vertical" />
-                <TextView
-                    android:id="@+id/tv_peopleAmountNumber"
+                <EditText
+                    android:id="@+id/et_peopleAmountNumber"
                     android:background="@drawable/titulo_registro"
                     android:textColor="@color/white"
-                    android:text="15"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:layout_height="100sp"

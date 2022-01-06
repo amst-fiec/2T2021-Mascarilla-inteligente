@@ -1,16 +1,25 @@
 package com.example.s_mask;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -41,6 +50,42 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
+    boolean pruebaConexion = false;
+
+    public static boolean isNetworkAvailable(Context context) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager != null) {
+            NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i(TAG, "NetworkCapabilities.TRANSPORT_CELLULAR");
+                    return true;
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i(TAG, "NetworkCapabilities.TRANSPORT_WIFI");
+                    return true;
+                }  else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)){
+                    Log.i(TAG, "NetworkCapabilities.TRANSPORT_ETHERNET");
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+
+    private static ConnectivityManager manager;
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
+    }
+
+
     ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new
             ActivityResultContracts.StartActivityForResult(), new
             ActivityResultCallback<ActivityResult>() {
@@ -57,7 +102,12 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(dashboard);
                             }
                         } catch (ApiException e) {
-                            Log.w("TAG", "Falló el inicio de sesión con google.", e);
+                            Log.w("TAG", "Falló el inicio de sesión con google", e);
+                            Toast toast2 =
+                                    Toast.makeText(getApplicationContext(),
+                                            "Falló el inicio de sesión con google, inténtelo de nuevo más tarde", Toast.LENGTH_SHORT);
+
+                            toast2.show();
                         }
                     }
                 }
@@ -87,11 +137,25 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Sin registrarse");
                 } }
 
+
     public void login(View view) {
         //Intent dashboard = new Intent(getBaseContext(), dashboard.class);
         //startActivity(dashboard);
-        resultLauncher.launch(new Intent(mGoogleSignInClient.getSignInIntent()));
+
+        pruebaConexion = isOnline(this);
+
+        if(pruebaConexion == true){
+            resultLauncher.launch(new Intent(mGoogleSignInClient.getSignInIntent()));
+        }
+        else{
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "No hay conexión a internet", Toast.LENGTH_SHORT);
+
+            toast1.show();
+        }
     }
+
 
     public void register(View view) {
         Intent register = new Intent(getBaseContext(), register.class);
