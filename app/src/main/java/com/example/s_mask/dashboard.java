@@ -9,7 +9,13 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,33 +27,99 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.os.Vibrator;
 import android.app.NotificationManager;
 
+import org.w3c.dom.Text;
+
 public class dashboard extends AppCompatActivity {
+
+    private TableLayout tableLayout;
+    private TextView txtHora;
+    private TextView txtDistancia;
+    private TextView txtTiempo;
+    private String hora;
+    private String distancia;
+    private String tiempo;
+    private String[] celdas = new String[3];
+
+    int cont = 1;
+    /*String hora = "";
+    String distancia = "";
+    String tiempo = "";*/
+
+    private String[]header = {"Hora", "Distancia", "Tiempo"};
+
+    private ArrayList<String[]> rows =  new ArrayList<>();
+    private ArrayList<String[]> rowsP =  new ArrayList<>();
+    private ArrayList<String[]> rowsC =  new ArrayList<>();
+
+    int rand;
+
+
+    private TableDynamic tableDynamic;
+
     ArrayList<String> listaPersonas = new ArrayList<String>();
     ArrayList<String> listaPersonasPrueba = new ArrayList<String>();
     private EditText etCantidadLista;
     private int cantidadLista;
-    private FirebaseAuth mAuth;
     private double tiempoUso;
     private static final int idUnica = 51623;
     private String channelID = "channelID";
     private String channelName = "channelName";
+    private ImageButton mImageButtonSignOut;
+    private FirebaseAuth mAuth;
+
+    private TextView mTituloNombre;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        tableLayout = (TableLayout) findViewById(R.id.tl_dashboard);
+
+        rowsC.add(new String[]{"17:14XD", "5 metros", "1m 18s"});
+
+        tableDynamic = new TableDynamic(tableLayout, getApplicationContext());
+        tableDynamic.addData(getClients());
+        tableDynamic.backgroundData(Color.YELLOW);
+        tableDynamic.lineColor(Color.BLACK);
+
+        mTituloNombre = (TextView) findViewById(R.id.tv_titleTable);
+
+        mImageButtonSignOut = (ImageButton) findViewById(R.id.btn_signOut);
+
+        mImageButtonSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Toast.makeText(dashboard.this, "Se cerro la sesión", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(dashboard.this, MainActivity.class));
+                finish();
+            }
+        });
+
         etCantidadLista = (EditText)findViewById(R.id.et_peopleAmountNumber);
 
-        pruebaCantidadListaPersonasPrueba();
-
-        cantidadLista = listaPersonasPrueba.size();
+        cantidadLista = getClients().size()/2;
         etCantidadLista.setText(String.valueOf(cantidadLista));
 
         createNotificationChannel();
@@ -67,7 +139,7 @@ public class dashboard extends AppCompatActivity {
                 .setAutoCancel(true);
 
 
-        if (cantidadLista > 5 || tiempoUso > 14400){
+        if (rand == 1 || tiempoUso > 14400){
             Toast.makeText(getApplicationContext(),
                     "Debe cambiar la mascarilla", Toast.LENGTH_SHORT).show();
 
@@ -77,6 +149,242 @@ public class dashboard extends AppCompatActivity {
             // notificationId is a unique int for each notification that you must define
             notificationManager.notify(0, builder.build());
         }
+
+        getUserInfo();
+    }
+
+    private ArrayList<String[]>getClients(){
+
+        rand = 1;
+        if(rand == 1){
+            rows.add(new String[]{"11:57", "4 metros", "7m 45s"});
+            rows.add(new String[]{"16:30", "3 metros", "6m 41s"});
+            rows.add(new String[]{"15:40", "7 metros", "9m 27s"});
+            rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+            rows.add(new String[]{"15:41", "5 metros", "9m 20s"});
+            rows.add(new String[]{"17:24", "5 metros", "23m 18s"});
+            rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+            rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+            rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+            rows.add(new String[]{"18:56", "4 metros", "13m 45s"});
+            rows.add(new String[]{"09:48", "4 metros", "22m 38s"});
+            rows.add(new String[]{"08:24", "5 metros", "10m 15s"});
+            rows.add(new String[]{"19:45", "7 metros", "12m 37s"});
+            rows.add(new String[]{"20:44", "5 metros", "11m 28s"});
+            rows.add(new String[]{"16:56", "4 metros", "3m 45s"});
+            rows.add(new String[]{"12:45", "7 metros", "2m 37s"});
+            rows.add(new String[]{"13:24", "3 metros", "2m 18s"});
+            rows.add(new String[]{"11:56", "4 metros", "7m 45s"});
+            rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+            rows.add(new String[]{"07:14", "5 metros", "3m 19s"});
+            rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+            rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+            rows.add(new String[]{"19:16", "4 metros", "3m 46s"});
+            rows.add(new String[]{"12:55", "7 metros", "26m 37s"});
+            rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+            rows.add(new String[]{"15:40", "7 metros", "9m 27s"});
+            rows.add(new String[]{"17:24", "5 metros", "23m 18s"});
+            rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+            rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+            rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+            rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+            rows.add(new String[]{"09:45", "7 metros", "22m 38s"});
+            rows.add(new String[]{"08:24", "5 metros", "10m 15s"});
+            rows.add(new String[]{"17:56", "4 metros", "7m 454"});
+            rows.add(new String[]{"19:45", "7 metros", "12m 37s"});
+            rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+            rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+            rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+            rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+            rows.add(new String[]{"17:56", "4 metros", "7m 454"});
+            rows.add(new String[]{"19:45", "7 metros", "12m 37s"});
+            rows.add(new String[]{"20:44", "5 metros", "11m 28s"});
+            rows.add(new String[]{"19:16", "4 metros", "3m 46s"});
+            rows.add(new String[]{"12:55", "7 metros", "26m 37s"});
+            rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+            rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+            rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+            rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+            rows.add(new String[]{"13:24", "3 metros", "2m 18s"});
+            rows.add(new String[]{"11:56", "4 metros", "7m 45s"});
+            rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+            rows.add(new String[]{"07:14", "5 metros", "3m 19s"});
+            rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+        }else{
+            if(rand == 2){
+                rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+                rows.add(new String[]{"07:14", "5 metros", "3m 19s"});
+                rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+                rows.add(new String[]{"15:40", "7 metros", "9m 27s"});
+                rows.add(new String[]{"17:24", "5 metros", "23m 18s"});
+                rows.add(new String[]{"19:45", "7 metros", "12m 37s"});
+                rows.add(new String[]{"20:44", "5 metros", "11m 28s"});
+                rows.add(new String[]{"19:16", "4 metros", "3m 46s"});
+                rows.add(new String[]{"12:55", "7 metros", "26m 37s"});
+                rows.add(new String[]{"17:14", "5 metros", "1m 18s"});
+                rows.add(new String[]{"16:56", "4 metros", "3m 45s"});
+                rows.add(new String[]{"12:45", "7 metros", "2m 37s"});
+                rows.add(new String[]{"13:24", "3 metros", "2m 18s"});
+                rows.add(new String[]{"11:56", "4 metros", "7m 45s"});
+                rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+                rows.add(new String[]{"07:14", "5 metros", "3m 19s"});
+                rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+                rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+            }else{
+                if(rand == 3){
+                    rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+                    rows.add(new String[]{"07:14", "5 metros", "3m 19s"});
+                    rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+                    rows.add(new String[]{"15:40", "7 metros", "9m 27s"});
+                    rows.add(new String[]{"12:45", "7 metros", "2m 37s"});
+                    rows.add(new String[]{"13:24", "3 metros", "2m 18s"});
+                    rows.add(new String[]{"11:56", "4 metros", "7m 45s"});
+                    rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+                    rows.add(new String[]{"07:14", "5 metros", "3m 19s"});
+                    rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                    rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                    rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+                    rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+                }else{
+                    if(rand == 4){
+                        rows.add(new String[]{"11:56", "4 metros", "7m 45s"});
+                        rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+                        rows.add(new String[]{"16:56", "4 metros", "3m 45s"});
+                        rows.add(new String[]{"12:45", "7 metros", "2m 37s"});
+                        rows.add(new String[]{"13:24", "3 metros", "2m 18s"});
+                        rows.add(new String[]{"11:56", "4 metros", "7m 45s"});
+                        rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+                        rows.add(new String[]{"15:40", "7 metros", "9m 27s"});
+                        rows.add(new String[]{"17:24", "5 metros", "23m 18s"});
+                        rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                        rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                        rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+                        rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+                        rows.add(new String[]{"09:45", "7 metros", "22m 38s"});
+                        rows.add(new String[]{"08:24", "5 metros", "10m 15s"});
+                        rows.add(new String[]{"17:56", "4 metros", "7m 454"});
+                        rows.add(new String[]{"19:45", "7 metros", "12m 37s"});
+                        rows.add(new String[]{"20:44", "5 metros", "11m 28s"});
+                        rows.add(new String[]{"19:16", "4 metros", "3m 46s"});
+                        rows.add(new String[]{"12:55", "7 metros", "26m 37s"});
+                        rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                        rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                        rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+                        rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+                    }
+                    else{
+                        rows.add(new String[]{"11:57", "4 metros", "7m 45s"});
+                        rows.add(new String[]{"16:30", "3 metros", "6m 41s"});
+                        rows.add(new String[]{"15:40", "7 metros", "9m 27s"});
+                        rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+                        rows.add(new String[]{"15:41", "5 metros", "9m 20s"});
+                        rows.add(new String[]{"17:24", "5 metros", "23m 18s"});
+                        rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                        rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                        rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+                        rows.add(new String[]{"18:56", "4 metros", "13m 45s"});
+                        rows.add(new String[]{"09:48", "4 metros", "22m 38s"});
+                        rows.add(new String[]{"08:24", "5 metros", "10m 15s"});
+                        rows.add(new String[]{"19:45", "7 metros", "12m 37s"});
+                        rows.add(new String[]{"20:44", "5 metros", "11m 28s"});
+                        rows.add(new String[]{"16:56", "4 metros", "3m 45s"});
+                        rows.add(new String[]{"12:45", "7 metros", "2m 37s"});
+                        rows.add(new String[]{"13:24", "3 metros", "2m 18s"});
+                        rows.add(new String[]{"11:56", "4 metros", "7m 45s"});
+                        rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+                        rows.add(new String[]{"07:14", "5 metros", "3m 19s"});
+                        rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                        rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                        rows.add(new String[]{"19:16", "4 metros", "3m 46s"});
+                        rows.add(new String[]{"12:55", "7 metros", "26m 37s"});
+                        rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+                        rows.add(new String[]{"15:40", "7 metros", "9m 27s"});
+                        rows.add(new String[]{"17:24", "5 metros", "23m 18s"});
+                        rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                        rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                        rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+                        rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+                        rows.add(new String[]{"09:45", "7 metros", "22m 38s"});
+                        rows.add(new String[]{"08:24", "5 metros", "10m 15s"});
+                        rows.add(new String[]{"17:56", "4 metros", "7m 454"});
+                        rows.add(new String[]{"19:45", "7 metros", "12m 37s"});
+                        rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                        rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                        rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+                        rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+                        rows.add(new String[]{"17:56", "4 metros", "7m 454"});
+                        rows.add(new String[]{"19:45", "7 metros", "12m 37s"});
+                        rows.add(new String[]{"20:44", "5 metros", "11m 28s"});
+                        rows.add(new String[]{"19:16", "4 metros", "3m 46s"});
+                        rows.add(new String[]{"12:55", "7 metros", "26m 37s"});
+                        rows.add(new String[]{"16:36", "4 metros", "4m 45s"});
+                        rows.add(new String[]{"13:15", "7 metros", "9m 37s"});
+                        rows.add(new String[]{"19:24", "5 metros", "33m 18s"});
+                        rows.add(new String[]{"18:56", "4 metros", "12m 45s"});
+                        rows.add(new String[]{"13:24", "3 metros", "2m 18s"});
+                        rows.add(new String[]{"11:56", "4 metros", "7m 45s"});
+                        rows.add(new String[]{"22:45", "7 metros", "4m 39s"});
+                        rows.add(new String[]{"07:14", "5 metros", "3m 19s"});
+                        rows.add(new String[]{"16:27", "4 metros", "6m 47s"});
+                    }
+                }
+            }
+        }
+
+
+
+        /*String id = mAuth.getCurrentUser().getUid();
+
+        mDatabase.child("Usuarios Mascarilla Inteligente SS-Mask").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    while( cont <= 30 ){
+                        if(dataSnapshot.child("table").child("dayTime ID "+cont).exists()){
+                            hora = dataSnapshot.child("table").child("dayTime ID "+cont).getValue().toString();
+                            distancia = dataSnapshot.child("table").child("distance ID "+cont).getValue().toString();
+                            tiempo = dataSnapshot.child("table").child("time ID "+cont).getValue().toString();
+
+                            rows.add(new String[]{hora, distancia, tiempo});
+
+                            Toast.makeText(dashboard.this, hora+distancia+tiempo, Toast.LENGTH_SHORT).show();
+                            cont = cont + 1;
+                            rowsP = rows;
+                            //Toast.makeText(dashboard.this, "ENTRA: "+hora+distancia+tiempo + " :dayTime ID "+cont, Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            //Toast.makeText(dashboard.this, "NO ENTRA: " + "dayTime ID "+cont, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
+        return rows;
+    }
+
+    private void getUserInfo(){
+        String id = mAuth.getCurrentUser().getUid();
+        mDatabase.child("Usuarios Mascarilla Inteligente SS-Mask").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String names = dataSnapshot.child("names").getValue().toString();
+                    String lastNames = dataSnapshot.child("lastNames").getValue().toString();
+
+                    mTituloNombre.setText(names +" "+ lastNames);
+                }else{
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     private void createNotificationChannel(){
@@ -94,45 +402,4 @@ public class dashboard extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
     }
-
-    public void logout(){
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
-        Toast.makeText(getApplicationContext(),
-                "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(dashboard.this, MainActivity.class));
-        finish();
-
-        /*FirebaseAuth.getInstance().signOut();
-
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // user is now signed out
-                        startActivity(new Intent(dashboard.this, MainActivity.class));
-                        Toast.makeText(getApplicationContext(),
-                                "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(),
-                                "Falló el cierre de sesión", Toast.LENGTH_SHORT).show();
-                    }
-                });*/
-    }
-
-    private void pruebaCantidadListaPersonasPrueba(){
-        listaPersonasPrueba.add("Alex");
-        listaPersonasPrueba.add("Dayana");
-        listaPersonasPrueba.add("Oscar");
-        listaPersonasPrueba.add("Andres");
-        listaPersonasPrueba.add("Aracelly");
-        listaPersonasPrueba.add("Justhyn");
-        listaPersonasPrueba.add("Juan");
-    }
-
 }

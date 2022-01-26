@@ -18,14 +18,13 @@
                     android:id="@+id/tv_titleTable"
                     android:layout_width="320dp"
                     android:layout_height="80dp"
-                    android:text="DASHBOARD"
-                    android:textSize="28dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:gravity="center_vertical"
                     android:paddingLeft="30dp"/>
                 <ImageButton
-                    android:onClick="logout"
+                    android:id="@+id/btn_signOut"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/titulo_registro"
                     android:layout_width="wrap_content"
@@ -81,20 +80,20 @@
                 <TableLayout
                     android:id="@+id/tl_dashboard"
                     android:layout_width="match_parent"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_height="475dp">
                     <TableRow
                         android:id="@+id/tb_dashboardData1"
                         android:weightSum="3"
                         android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_height="1dp"
+                        >
                         <TextView
                             android:id="@+id/tb_timeData1"
                             android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
+                            android:layout_height="1dp"
                             android:textSize="16dp"
                             android:textStyle="bold"
                             android:gravity="center"
@@ -102,8 +101,7 @@
                         <TextView
                             android:id="@+id/tb_distanceData1"
                             android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
+                            android:layout_height="1dp"
                             android:textSize="16dp"
                             android:textStyle="bold"
                             android:gravity="center"
@@ -111,512 +109,7 @@
                         <TextView
                             android:id="@+id/tb_howManyTimeData1"
                             android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData2"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData2"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData2"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData2"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData3"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData3"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData3"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData3"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData4"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData4"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData4"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData4"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData5"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData5"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData5"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData5"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData6"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData6"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData6"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData6"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData7"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData7"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData7"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData7"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData8"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData8"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData8"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData8"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData9"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData9"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData9"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData9"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData10"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData10"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData10"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData10"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData11"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData11"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData11"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData11"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData12"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData12"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData12"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData12"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData13"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData13"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData13"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData13"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData14"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData14"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData14"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData14"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tb_dashboardData15"
-                        android:weightSum="3"
-                        android:background="@drawable/color_tabla_datos_celdas"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-                        <TextView
-                            android:id="@+id/tb_timeData15"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_distanceData15"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:id="@+id/tb_howManyTimeData15"
-                            android:layout_weight="1"
-                            android:layout_height="40dp"
-                            android:text="Dato"
+                            android:layout_height="1dp"
                             android:textSize="16dp"
                             android:textStyle="bold"
                             android:gravity="center"
@@ -625,23 +118,24 @@
                 </TableLayout>
             </ScrollView>
             <LinearLayout
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/titulo_registro"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/tv_peopleAmountText"
-                    android:background="@drawable/titulo_registro"
+
                     android:textColor="@color/white"
                     android:text="Total de personas detectadas:"
                     android:textSize="20dp"
+                    android:textStyle="bold"
                     android:paddingLeft="30sp"
                     android:layout_height="100sp"
                     android:layout_width="wrap_content"
                     android:gravity="center_vertical" />
                 <EditText
                     android:id="@+id/et_peopleAmountNumber"
-                    android:background="@drawable/titulo_registro"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     android:textStyle="bold"
