@@ -1,7 +1,6 @@
 package com.example.s_mask;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.widget.TableLayout;
@@ -11,9 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class TableDynamic {
-    private TableLayout tableLayout;
-    private Context context;
-    private String[]header;
+    //Variables
+    private final TableLayout tableLayout;
+    private final Context context;
     private ArrayList<String[]>data;
     private TableRow tableRow;
     private TextView txtCell;
@@ -26,8 +25,7 @@ public class TableDynamic {
         this.context = context;
     }
 
-    public void addHeader(String[]header){
-    }
+
     public void addData(ArrayList<String[]>data){
         this.data = data;
         createDataTable();
@@ -45,6 +43,7 @@ public class TableDynamic {
         txtCell.setPadding(1,30,1,30);
     }
 
+    //Creacion de filas y columnas
     private void createDataTable(){
         String info;
         for(indexR = 1 ; indexR <= data.size() ; indexR++){
@@ -69,6 +68,7 @@ public class TableDynamic {
         return (TextView) tableRow.getChildAt(columnIndex);
     }
 
+    //Color de linea entre celdas
     public void lineColor(int color){
         indexR = 1;
         while(indexR < data.size()+1){
@@ -76,14 +76,7 @@ public class TableDynamic {
         }
     }
 
-    public void reColoring(){
-        indexC = 0;
-        while(indexC < data.size()){
-            txtCell = getCell(data.size() - 1, indexC++);
-            txtCell.setBackgroundColor(color);
-        }
-    }
-
+    //Coloreo de celdas
     public void backgroundData(int color){
         for(indexR = 1 ; indexR <= data.size() ; indexR++){
             for(indexC = 0 ; indexC < 3 ; indexC++){
@@ -94,6 +87,7 @@ public class TableDynamic {
         this.color = color;
     }
 
+    //Parametros de la tabla
     private TableRow.LayoutParams newTableRowParams(){
         TableRow.LayoutParams params = new TableRow.LayoutParams();
         params.setMargins(2, 2, 2, 2);

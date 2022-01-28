@@ -48,6 +48,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Variables
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
 
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Autenticacion con firebase
         mAuth = FirebaseAuth.getInstance();
         mGDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         mEditTextPassword = (EditText) findViewById(R.id.et_passwordLogin);
         mButtonLogin = (Button) findViewById(R.id.btn_login);
 
+        //Login de usuario (con respectiva validacion)
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Logueo con google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
+    //Inicio de sesion automatico en caso de iniciar la app ya teniendo el usuario ingresado anteriormente
     @Override
     protected void onStart() {
         super.onStart();
@@ -101,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Validaciones de conexion a internet y otras, con el logueo de usuario
     private void loginUser(){
         pruebaConexion = isOnline(this);
         if(pruebaConexion == true){
@@ -130,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Comprobacion de conexiona  internet
     boolean pruebaConexion = false;
 
     private static ConnectivityManager manager;
@@ -140,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         return networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
     }
 
-
+    //Inicio de sesion con Google Firebase
     ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new
             ActivityResultContracts.StartActivityForResult(), new
             ActivityResultCallback<ActivityResult>() {
@@ -167,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 }
     });
 
+    //Autenticacion con Firebase
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
             Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
             AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(),
@@ -193,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
                 }
     }
 
+    //Funcion de logueo activada por bootn login
     public void login(View view) {
         pruebaConexion = isOnline(this);
         if(pruebaConexion == true){
@@ -206,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Funcion para entrar a pantalla de registro
     public void register(View view) {
         Intent register = new Intent(getBaseContext(), register.class);
         startActivity(register);

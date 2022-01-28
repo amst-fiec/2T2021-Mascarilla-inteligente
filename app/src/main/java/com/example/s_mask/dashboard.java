@@ -47,6 +47,8 @@ import org.w3c.dom.Text;
 
 public class dashboard extends AppCompatActivity {
 
+    //Variables
+
     private TableLayout tableLayout;
     private TextView txtHora;
     private TextView txtDistancia;
@@ -91,6 +93,7 @@ public class dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        //Autenticacion para firebase
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -98,6 +101,7 @@ public class dashboard extends AppCompatActivity {
 
         rowsC.add(new String[]{"17:14XD", "5 metros", "1m 18s"});
 
+        //Tabla dinamica de datos mascarlla
         tableDynamic = new TableDynamic(tableLayout, getApplicationContext());
         tableDynamic.addData(getClients());
         tableDynamic.backgroundData(Color.YELLOW);
@@ -107,6 +111,7 @@ public class dashboard extends AppCompatActivity {
 
         mImageButtonSignOut = (ImageButton) findViewById(R.id.btn_signOut);
 
+        //Cerrar sesion
         mImageButtonSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +124,7 @@ public class dashboard extends AppCompatActivity {
 
         etCantidadLista = (EditText)findViewById(R.id.et_peopleAmountNumber);
 
+        //Contar cantidad de personas en tabla mascarilla
         cantidadLista = getClients().size()/2;
         etCantidadLista.setText(String.valueOf(cantidadLista));
 
@@ -128,6 +134,8 @@ public class dashboard extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
+
+        //Creacion y alerta de la notificacion
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelID)
                 .setSmallIcon(R.drawable.mascarilla)
                 .setContentTitle("SS-Mask")
@@ -138,7 +146,7 @@ public class dashboard extends AppCompatActivity {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
-
+        //Validacion para la notificacion
         if (rand == 1 || tiempoUso > 14400){
             Toast.makeText(getApplicationContext(),
                     "Debe cambiar la mascarilla", Toast.LENGTH_SHORT).show();
@@ -155,7 +163,7 @@ public class dashboard extends AppCompatActivity {
 
     private ArrayList<String[]>getClients(){
 
-        rand = 1;
+        rand = (int)(Math.random()*5 + 1);
         if(rand == 1){
             rows.add(new String[]{"11:57", "4 metros", "7m 45s"});
             rows.add(new String[]{"16:30", "3 metros", "6m 41s"});
@@ -332,42 +340,10 @@ public class dashboard extends AppCompatActivity {
                 }
             }
         }
-
-
-
-        /*String id = mAuth.getCurrentUser().getUid();
-
-        mDatabase.child("Usuarios Mascarilla Inteligente SS-Mask").child(id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    while( cont <= 30 ){
-                        if(dataSnapshot.child("table").child("dayTime ID "+cont).exists()){
-                            hora = dataSnapshot.child("table").child("dayTime ID "+cont).getValue().toString();
-                            distancia = dataSnapshot.child("table").child("distance ID "+cont).getValue().toString();
-                            tiempo = dataSnapshot.child("table").child("time ID "+cont).getValue().toString();
-
-                            rows.add(new String[]{hora, distancia, tiempo});
-
-                            Toast.makeText(dashboard.this, hora+distancia+tiempo, Toast.LENGTH_SHORT).show();
-                            cont = cont + 1;
-                            rowsP = rows;
-                            //Toast.makeText(dashboard.this, "ENTRA: "+hora+distancia+tiempo + " :dayTime ID "+cont, Toast.LENGTH_SHORT).show();
-
-                        }else{
-                            //Toast.makeText(dashboard.this, "NO ENTRA: " + "dayTime ID "+cont, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
         return rows;
     }
 
+    //Conseguir Nombres del usuario y presentarlo en parte superior de pantalla
     private void getUserInfo(){
         String id = mAuth.getCurrentUser().getUid();
         mDatabase.child("Usuarios Mascarilla Inteligente SS-Mask").child(id).addValueEventListener(new ValueEventListener() {
@@ -387,6 +363,7 @@ public class dashboard extends AppCompatActivity {
         });
     }
 
+    //Creacion canal para notificacion
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             int importance = NotificationManager.IMPORTANCE_HIGH;
